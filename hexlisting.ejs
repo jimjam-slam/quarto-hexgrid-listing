@@ -1,0 +1,137 @@
+<!-- hex badge listing by jamesgoldie.dev, jan 2025 -->
+
+<%
+  // wrap pairs of hexes
+  let pairs = [];
+  for (let i = 0; i < items.length; i += 2) {
+    pairs.push([
+      items[i],
+      items[i + 1] ||  null]
+    )
+  }
+%>
+
+```{=html}
+<style>
+  .hex-listing-container {
+    display: flex;
+    flex-flow: row wrap;
+    --hex-width: 150px;
+    --hex-height: calc(var(--hex-width) * 1.1547);
+    --hex-margin: 4px;
+    --hex-shape: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    padding-inline-start: calc(var(--hex-width) * 0.5 - var(--hex-margin));
+    padding-block-start: calc(0.25 * var(--hex-height) - 2 * var(--hex-margin));
+  }
+
+  .hex-listing-pair {
+    display: inline-flex;
+    align-items: start;
+    height: calc(2 * var(--hex-height) + 2 * var(--hex-margin) - 0.25 * var(--hex-height));
+    margin-inline-start: calc(var(--hex-width) * -0.5 + var(--hex-margin));
+    margin-block-start: calc(-0.25 * var(--hex-height) + 2 * var(--hex-margin));
+  }
+
+  .hex-listing-item {
+    place-content: center;
+    text-align: center;
+    transition-delay: 0;
+    transition:
+      transform 0.25s ease-in-out,
+      filter 0.25s linear;
+    filter: drop-shadow(0px 0px 8px #00000011);
+  }
+  
+  .hex-listing-item:has(a:hover),
+  .hex-listing-item:has(a:focus-visible) {
+    transition-delay: 0.2s;
+    transform: scale(1.15);
+    filter: drop-shadow(0px 0px 8px #00000044);
+    z-index: 1;
+  }
+  
+  .hex-listing-container a {
+    display: inline-grid;
+    width: var(--hex-width);
+    height: var(--hex-height);
+    clip-path: var(--hex-shape);
+    text-decoration: none;
+  }
+
+  .hex-listing-item a:focus-visible {
+    outline: 3px solid red;
+  }
+
+  .hex-listing-item:nth-child(2) {
+    margin-inline-start: calc(-0.5 * var(--hex-width) + var(--hex-margin));
+    align-self: end;
+  }
+
+  /* hex contents */
+
+  .hex-listing-container a > * {
+    grid-area: 1 / 1;
+  }
+
+
+  .hex-listing-container a img {
+    width: var(--hex-width);
+    height: var(--hex-height);
+    object-fit: cover;
+  }
+
+  .hex-listing-container a p {
+    color: grey;
+    font-size: 70%;
+    align-self: center;
+    margin: 0;
+    padding-inline: 0.75em;
+  }
+
+  /* fallback appearance when there's no image */
+
+  .hex-listing-container a:not(:has(img)) {
+    background-color: #efefef;
+  }
+
+  /* mobile sizing */
+
+  @media (max-width: 767.98px) {
+    .hex-listing-container {
+      --hex-width: 100px;
+    }
+
+    .hex-listing-container a p {
+      font-size: 50%;
+    }
+
+  }
+
+</style>
+
+<div class="hex-listing-container">
+  <% for (const pair of pairs) { %>
+    <div class="hex-listing-pair">
+      <div class="hex-listing-item">
+        <a href="<%- pair[0].path %>">
+          <p><%= pair[0].title %></p>
+          <% if (pair[0].image) { %>
+            <img loading="lazy" src="<%- pair[0].image %>" alt="<%= pair[0].title %>"/>
+          <% } %>
+        </a>
+      </div>
+      <% if (pair[1] != null) {%>
+        <div class="hex-listing-item">
+          <a href="<%- pair[1].path %>">
+            <p><%= pair[1].title %></p>
+            <% if (pair[1].image) { %>
+              <img loading="lazy" src="<%- pair[1].image %>" alt="<%= pair[1].title %>"/>
+            <% } %>
+          </a>
+        </div>
+      <% } %>
+      </div>    
+  <% } %>
+</ul>
+
+```

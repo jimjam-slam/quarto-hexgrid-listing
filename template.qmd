@@ -1,0 +1,20 @@
+---
+title: Hex grid listing example
+format: html
+author: jimjamslam
+listing:
+  id: hex-listing
+  template: hexlisting.ejs
+  contents:
+    - title: Post A
+      path: a
+    - title: Post B
+      path: b
+    - title: Post C
+      path: c
+    - title: Post D
+      path: d
+---
+
+:::{#hex-listing}
+:::
