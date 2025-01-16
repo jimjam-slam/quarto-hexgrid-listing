@@ -19,3 +19,7 @@ This will copy `hexlisting.ejs` into the folder where you intend to have the lis
 Once it's installed, provide [`template: hexlisting.ejs`](https://quarto.org/docs/websites/website-listings-custom.html#listing-templates) under the `listing` you want to use.
 
 Having problems with the extension? Got a great idea? [Submit an issue!](/issues/new)
+
+> [!NOTE]
+> This extension does not currently support [user tools](https://quarto.org/docs/websites/website-listings.html#user-tools) like sorting, filtering or pagination.
+> 
